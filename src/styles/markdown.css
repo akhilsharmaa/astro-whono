@@ -1,0 +1,44 @@
+.prose {
+  color: var(--text);
+}
+
+.prose p {
+  margin: 0 0 14px;
+}
+
+.prose blockquote {
+  margin: 16px 0;
+  padding: 10px 14px;
+  border-left: 2px solid var(--border);
+  color: var(--muted);
+  background: #fafafa;
+}
+
+.prose code {
+  font-size: 0.9em;
+  background: #f6f8fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.prose pre {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: auto;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose ul, .prose ol {
+  padding-left: 20px;
+}
+
+.prose li { margin: 6px 0; }
+
+.prose a {
+  border-bottom-color: rgba(0,0,0,0.15);
+}

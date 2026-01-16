@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EntryListItem from '../components/EntryListItem.astro';
+import { getCollection } from 'astro:content';
+
+const prod = import.meta.env.PROD;
+
+const posts = await getCollection('posts', ({ data }) => (prod ? data.draft !== true : true));
+const essays = await getCollection('essay', ({ data }) => (prod ? data.draft !== true : true));
+
+const merged = [
+  ...posts.map((entry) => ({ type: 'posts', entry })),
+  ...essays.map((entry) => ({ type: 'essay', entry }))
+].sort((a, b) => b.entry.data.date.valueOf() - a.entry.data.date.valueOf());
+
+const latest = merged.slice(0, 12);
+---
+
+<BaseLayout>
+  <div class="hero">
+    <img src="/hero.svg" alt="" />
+  </div>
+
+  <div class="intro">
+    把记录当成一件慢慢做的事。这里收录长文（posts）、随笔（essay）以及碎片化的小记（bits）。
+    <br />
+    更多文章请访问 <a href="/posts/">归档</a> 或 <a href="/essay/">随笔</a>。
+  </div>
+
+  <h2 class="section-title">索引</h2>
+
+  <div class="list">
+    {latest.map(({ type, entry }) => {
+      const href = type === 'posts' ? `/posts/${entry.id}/` : `/essay/${entry.id}/`;
+      const tag = entry.data.tags?.[0];
+      return (
+        <EntryListItem
+          href={href}
+          title={entry.data.title}
+          date={entry.data.date}
+          tag={tag}
+          excerpt={entry.data.description}
+        />
+      );
+    })}
+  </div>
+</BaseLayout>

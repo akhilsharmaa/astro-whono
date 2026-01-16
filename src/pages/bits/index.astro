@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BitCard from '../../components/BitCard.astro';
+import { getCollection, render } from 'astro:content';
+
+const prod = import.meta.env.PROD;
+
+const bits = (await getCollection('bits', ({ data }) => (prod ? data.draft !== true : true)))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const rendered = await Promise.all(
+  bits.map(async (bit) => {
+    const { Content } = await render(bit);
+    return { bit, Content };
+  })
+);
+---
+
+<BaseLayout title="生活小记">
+  <div class="bits-hero">
+    <h1>生活小记</h1>
+    <p>生活不需要长篇，记得就好。</p>
+  </div>
+
+  <div class="bits-toolbar">
+    <h2>生活小记</h2>
+    <div class="bits-controls">
+      <input id="bits-search" type="search" placeholder="搜索小记..." autocomplete="off" />
+      <button id="bits-search-btn" type="button">搜索</button>
+      <button class="new" id="bits-new-btn" type="button" data-new-bit>✍ 写小记</button>
+    </div>
+  </div>
+
+  <div id="bits-list">
+    {rendered.map(({ bit, Content }) => (
+      <BitCard bit={bit} Content={Content} />
+    ))}
+  </div>
+
+  <script>
+    const input = document.getElementById('bits-search');
+    const btn = document.getElementById('bits-search-btn');
+    const cards = Array.from(document.querySelectorAll('[data-bit]'));
+
+    function applyFilter() {
+      const q = (input.value || '').trim().toLowerCase();
+      for (const el of cards) {
+        const hay = (el.getAttribute('data-search') || '').toLowerCase();
+        el.style.display = q === '' || hay.includes(q) ? '' : 'none';
+      }
+    }
+
+    input?.addEventListener('input', applyFilter);
+    btn?.addEventListener('click', applyFilter);
+
+    const newBtn = document.querySelector('[data-new-bit]');
+    newBtn?.addEventListener('click', async () => {
+      const cmd = 'npm run new:bit';
+      try {
+        await navigator.clipboard.writeText(cmd);
+        newBtn.textContent = '已复制命令';
+        setTimeout(() => (newBtn.textContent = '✍ 写小记'), 1200);
+      } catch {
+        alert(`在项目根目录运行：\n\n${cmd}`);
+      }
+    });
+  </script>
+</BaseLayout>

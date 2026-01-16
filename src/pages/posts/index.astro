@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { groupByYear, formatMonthDay } from '../../utils/format';
+
+const prod = import.meta.env.PROD;
+
+const posts = (await getCollection('posts', ({ data }) => (prod ? data.draft !== true : true)))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const groups = groupByYear(posts, (p) => p.data.date);
+---
+
+<BaseLayout title="文章归档">
+  <h1 class="page-title">文章归档</h1>
+  <div class="page-meta">
+    全量文章列表，共 {posts.length} 篇文章 · <a href="/posts/rss.xml">RSS</a>
+  </div>
+
+  {groups.map((g) => (
+    <section>
+      <h2 class="archive-year">{g.year}</h2>
+      <div class="archive-list">
+        {g.list.map((post) => (
+          <div class="archive-row">
+            <div class="archive-date">{formatMonthDay(post.data.date)}</div>
+            <div>
+              <a href={`/posts/${post.id}/`}>{post.data.title}</a>
+            </div>
+            <div class="archive-tag">{post.data.tags?.[0] ? `#${post.data.tags[0]}` : ''}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+  ))}
+</BaseLayout>

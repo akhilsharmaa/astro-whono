@@ -1,0 +1,41 @@
+---
+const { siteTitle = 'Whono' } = Astro.props;
+
+const pathname = Astro.url.pathname;
+
+const nav = [
+  { label: '随笔', href: '/essay/' },
+  { label: '归档', href: '/posts/' },
+  { label: '孩童', href: '/kids/' },
+  { label: '小记', href: '/bits/' },
+  { label: '关于', href: '/about/' }
+];
+
+const quote = 'There is only one thing in\nthe world worse than being\ntalked about, and that is\nnot being talked about.';
+---
+
+<aside class="sidebar">
+  <a class="sidebar__title" href="/" aria-label={`${siteTitle} 首页`}>{siteTitle}</a>
+
+  <div class="sidebar__quote">
+    {quote.split('\n').map((line) => (
+      <>
+        {line}<br />
+      </>
+    ))}
+  </div>
+
+  <ul class="nav">
+    {nav.map((item) => {
+      const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+      return (
+        <li>
+          <a href={item.href} aria-current={isActive ? 'page' : undefined}>
+            <span>{item.label}</span>
+            <span class="dot" aria-hidden="true"></span>
+          </a>
+        </li>
+      );
+    })}
+  </ul>
+</aside>

@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EssayCard from '../../components/EssayCard.astro';
+import { getCollection } from 'astro:content';
+
+const prod = import.meta.env.PROD;
+
+const essays = (await getCollection('essay', ({ data }) => (prod ? data.draft !== true : true)))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout title="随笔">
+  <h1 class="page-title">随笔</h1>
+  <div class="page-meta">
+    随笔与杂记，共 {essays.length} 篇 · <a href="/essay/rss.xml">RSS</a>
+  </div>
+
+  <div class="list">
+    {essays.map((e) => (
+      <EssayCard
+        href={`/essay/${e.id}/`}
+        title={e.data.title}
+        excerpt={e.data.description}
+        date={e.data.date}
+        tag={e.data.tags?.[0]}
+      />
+    ))}
+  </div>
+</BaseLayout>

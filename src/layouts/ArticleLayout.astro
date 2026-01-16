@@ -1,0 +1,26 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import { formatISODate } from '../utils/format';
+
+const {
+  entry,
+  Content,
+  typeLabel
+} = Astro.props;
+
+const tags = entry?.data?.tags ?? [];
+const firstTag = tags[0];
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description}>
+  <h1 class="page-title">{entry.data.title}</h1>
+  <div class="meta-line">
+    发布于：{formatISODate(entry.data.date)}
+    {typeLabel ? <> · <span class="tag">{typeLabel}</span></> : null}
+    {firstTag ? <> · <span class="tag">#{firstTag}</span></> : null}
+  </div>
+
+  <div class="prose">
+    <Content />
+  </div>
+</BaseLayout>
