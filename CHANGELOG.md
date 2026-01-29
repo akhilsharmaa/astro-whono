@@ -7,7 +7,13 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 ## [Unreleased]
 ### Added
 ### Changed
+- README 补充演示链接与截图，并调整 CI 徽章样式
+- package.json 补充开源元信息（license/repository/bugs/homepage）并标记为可发布
+- 侧栏英文引言文案更新
+- 页脚年份改为自动区间（2025–当前年）
+- 移动端侧栏图标组收紧间距并右对齐（避免顶部遮挡）
 ### Fixed
+- 桌面端导航链接点击区域由整行收敛到文本范围
 
 ## [0.1.0] - 2026-01-28 (Pre-release)
 ### Added

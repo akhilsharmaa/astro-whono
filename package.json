@@ -1,7 +1,16 @@
 {
   "name": "astro-whono",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cxro/astro-whono.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cxro/astro-whono/issues"
+  },
+  "homepage": "https://astro.whono.me",
   "type": "module",
   "engines": {
     "node": ">=22.12.0"

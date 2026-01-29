@@ -22,8 +22,6 @@ pnpm-debug.log*
 Thumbs.db
 .vscode/
 .idea/
-.claude/
-.ace-tool/
 
 # Misc
 *.tsbuildinfo

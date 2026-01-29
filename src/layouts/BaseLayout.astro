@@ -19,6 +19,9 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).toString(
 const ogImage = image
   ? (Astro.site ? new URL(image, Astro.site).toString() : image)
   : null;
+const startYear = 2025;
+const currentYear = new Date().getFullYear();
+const yearRange = currentYear > startYear ? `${startYear}-${currentYear}` : `${startYear}`;
 ---
 
 <!doctype html>
@@ -62,7 +65,7 @@ const ogImage = image
       <main class="content">
         <div class="content__inner">
           <slot />
-          <footer class="site-footer">© {brandTitle} | since 2023</footer>
+          <footer class="site-footer">© {yearRange} Whono · Theme Demo · by cxro</footer>
         </div>
       </main>
     </div>

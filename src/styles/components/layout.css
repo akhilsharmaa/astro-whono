@@ -92,6 +92,18 @@
   opacity: 0.55;
 }
 
+@media (min-width: 901px) {
+  .nav li {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .nav a {
+    display: inline-flex;
+    width: fit-content;
+  }
+}
+
 /* ===============================
    内容区域
 ================================ */
@@ -364,9 +376,7 @@
   .sidebar-actions {
     order: 2;
     margin-top: 0;
-    margin-left: 0;
     align-self: center;
-    gap: 0;
   }
 
   .sidebar-actions .icon-button {
@@ -466,6 +476,13 @@
   gap: 10px;
   align-items: center;
   align-self: flex-end;
+}
+
+@media (max-width: 900px) {
+  .sidebar-actions {
+    margin-left: auto;
+    gap: 4px;
+  }
 }
 
 /* 图标按钮基础样式 */

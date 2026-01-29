@@ -1,6 +1,6 @@
 # astro-whono
 
-![CI](https://github.com/cxro/astro-whono/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/cxro/astro-whono/actions/workflows/ci.yml/badge.svg?style=flat&color=9b7ba8)
 
 一个极简双栏的 Astro 主题项目，面向个人写作与轻量内容发布。
 
@@ -14,8 +14,13 @@
 
 ## 演示
 
-- 在线预览：待补充
-- 演示截图：待补充
+- 在线预览：https://astro.whono.me
+- 演示截图：
+  - 浅色：`public/preview-light.png`
+  - 深色：`public/preview-dark.png`
+
+![浅色预览](public/preview-light.png)
+![深色预览](public/preview-dark.png)
 
 ## 运行环境
 
@@ -166,7 +171,7 @@ draft: true
 
 本项目包含字体 **LXGW WenKai（霞鹜文楷）**（Lite, Regular），作者 LXGW。
 
-许可：**SIL Open Font License 1.1**（见 `public/fonts/OFL.txt` 或 `LICENSES/LXGW-WenKai-OFL-1.1.txt`）。
+许可：**SIL Open Font License 1.1**（见 `public/fonts/OFL.txt`）。
 
 使用的字体文件：
 - `public/fonts/LXGWWenKaiLite-Regular.woff2`
