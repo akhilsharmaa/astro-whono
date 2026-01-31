@@ -4,16 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on Keep a Changelog, and this project aims to follow Semantic Versioning.
 
-## [Unreleased]
-### Added
-### Changed
-### Fixed
 
-## [0.1.1] - 2026-01-29
+## [Unreleased] 
 ### Added
 - 新增 `netlify.toml` 固化 Netlify 构建与发布参数
 - README 一键部署增加部署后检查清单
 ### Changed
+- 构建时强制内联样式表（`inlineStylesheets: 'always'`），减少首屏阻塞 CSS
 - `SITE_URL` 缺失时不再输出 canonical/og:url（避免相对 URL 被判错）
 - 生产环境未设置 `SITE_URL` 时输出警告日志
 - 一键部署说明补充 `SITE_URL` 对 canonical/og:url 与 RSS 的作用

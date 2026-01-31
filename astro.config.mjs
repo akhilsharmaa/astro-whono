@@ -9,6 +9,9 @@ export default defineConfig({
   // Required for RSS generation. Prefer SITE_URL; fallback keeps build passing.
   site: site.url,
   trailingSlash: 'always',
+  build: {
+    inlineStylesheets: 'always'
+  },
   vite: {
     resolve: {
       alias: {
