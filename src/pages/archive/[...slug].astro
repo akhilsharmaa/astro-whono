@@ -7,18 +7,22 @@ export async function getStaticPaths() {
   const posts = await getPublished('posts', {
     orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
   });
-  return posts.map((post, index) => {
-    const prevEntry = posts.at(index - 1);
-    const nextEntry = posts.at(index + 1);
+  const archivePosts = posts.filter((post) => {
+    const slug = post.data.slug ?? post.id;
+    return !slug.startsWith('page/');
+  });
+  return archivePosts.map((post, index) => {
+    const prevEntry = archivePosts.at(index - 1);
+    const nextEntry = archivePosts.at(index + 1);
     return {
       params: { slug: post.data.slug ?? post.id },
       props: {
         post,
         prev: prevEntry
-          ? { href: `/posts/${prevEntry.data.slug ?? prevEntry.id}/`, title: prevEntry.data.title }
+          ? { href: `/archive/${prevEntry.data.slug ?? prevEntry.id}/`, title: prevEntry.data.title }
           : null,
         next: nextEntry
-          ? { href: `/posts/${nextEntry.data.slug ?? nextEntry.id}/`, title: nextEntry.data.title }
+          ? { href: `/archive/${nextEntry.data.slug ?? nextEntry.id}/`, title: nextEntry.data.title }
           : null
       }
     };

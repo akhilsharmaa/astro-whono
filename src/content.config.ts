@@ -12,6 +12,7 @@ const baseFields = {
   date: z.coerce.date(),
   tags: z.array(z.string()).default([]),
   draft: z.boolean().default(false),
+  archive: z.boolean().default(true),
   // Optional custom permalink. If present, it overrides the auto-generated id.
   slug: slugRule.optional()
 };

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPublished } from '../../lib/content';
+import { groupByYear, formatMonthDay, formatISODate } from '../../utils/format';
+import { PAGE_SIZE_ARCHIVE } from '../../../site.config.mjs';
+
+const posts = await getPublished('posts', {
+  orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+});
+const essays = await getPublished('essay', {
+  orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+});
+
+const archiveItems = [
+  ...posts.filter((post) => post.data.archive !== false).map((entry) => ({ type: 'posts', entry })),
+  ...essays.filter((entry) => entry.data.archive !== false).map((entry) => ({ type: 'essay', entry }))
+].sort((a, b) => b.entry.data.date.valueOf() - a.entry.data.date.valueOf());
+
+const totalPages = Math.ceil(archiveItems.length / PAGE_SIZE_ARCHIVE);
+const currentPage = 1;
+const pageItems = archiveItems.slice(0, PAGE_SIZE_ARCHIVE);
+const groups = groupByYear(pageItems, (item) => item.entry.data.date);
+
+const showPagination = totalPages > 1;
+const prevHref = null;
+const nextHref = currentPage < totalPages ? `/archive/page/${currentPage + 1}/` : null;
+---
+
+<BaseLayout title="归档">
+  <div class="page-header">
+    <h1 class="page-title">归档</h1>
+    <span class="page-subtitle">共 {archiveItems.length} 篇内容 · <a href="/archive/rss.xml">RSS</a></span>
+  </div>
+
+  {groups.map((g) => (
+    <section>
+      <h2 class="archive-year">{g.year}</h2>
+      <div class="archive-list">
+        {g.list.map(({ type, entry }) => {
+          const slug = entry.data.slug ?? entry.id;
+          const href = type === 'posts' ? `/archive/${slug}/` : `/essay/${slug}/`;
+          const tag = entry.data.tags?.[0];
+          return (
+          <div class="archive-row">
+            <div class="archive-title">
+              <a href={href}>{entry.data.title}</a>
+            </div>
+            <div class="archive-meta">
+              <div class="archive-date">
+                <span class="archive-date-md">{formatMonthDay(entry.data.date)}</span>
+                <span class="archive-date-full">{formatISODate(entry.data.date)}</span>
+              </div>
+              {tag ? (
+                <div class="archive-tag">#{tag}</div>
+              ) : null}
+            </div>
+          </div>
+        );
+        })}
+      </div>
+    </section>
+  ))}
+
+  {showPagination && (
+    <nav class="pagination" aria-label="归档分页">
+      <div class="pagination__inner">
+        {prevHref ? (
+          <a class="pagination__link" rel="prev" href={prevHref}>上一页</a>
+        ) : null}
+        {nextHref ? (
+          <a class="pagination__link pagination__link--next" rel="next" href={nextHref}>下一页</a>
+        ) : null}
+      </div>
+    </nav>
+  )}
+</BaseLayout>

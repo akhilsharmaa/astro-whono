@@ -1,12 +1,6 @@
 # astro-whono
 
-[![CI](https://img.shields.io/github/actions/workflow/status/cxro/astro-whono/ci.yml?style=flat&label=CI&labelColor=2E3440&color=A3BE8C&logo=githubactions&logoColor=ECEFF4)](https://github.com/cxro/astro-whono/actions/workflows/ci.yml)
-
-[![Node](https://img.shields.io/github/package-json/node-version/cxro/astro-whono?branch=main&style=flat&label=Node&labelColor=2E3440&color=81A1C1&logo=nodedotjs&logoColor=ECEFF4)](https://github.com/cxro/astro-whono#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82)
-
-[![Astro](https://img.shields.io/github/package-json/dependency-version/cxro/astro-whono/astro?branch=main&style=flat&label=Astro&labelColor=2E3440&color=BC52EE&logo=astro&logoColor=ECEFF4)](https://docs.astro.build/)
-
-[![License](https://img.shields.io/github/license/cxro/astro-whono?style=flat&label=License&labelColor=2E3440&color=4C566A&logo=opensourceinitiative&logoColor=ECEFF4)](LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/cxro/astro-whono/ci.yml?style=flat&label=CI&labelColor=2E3440&color=A3BE8C&logo=githubactions&logoColor=ECEFF4)](https://github.com/cxro/astro-whono/actions/workflows/ci.yml)  [![Node](https://img.shields.io/github/package-json/node-version/cxro/astro-whono?branch=main&style=flat&label=Node&labelColor=2E3440&color=81A1C1&logo=nodedotjs&logoColor=ECEFF4)](https://github.com/cxro/astro-whono#%E7%8E%AF%E5%A2%83%E8%A6%81%E6%B1%82)  [![Astro](https://img.shields.io/github/package-json/dependency-version/cxro/astro-whono/astro?branch=main&style=flat&label=Astro&labelColor=2E3440&color=BC52EE&logo=astro&logoColor=ECEFF4)](https://docs.astro.build/)  [![License](https://img.shields.io/github/license/cxro/astro-whono?style=flat&label=License&labelColor=2E3440&color=4C566A&logo=opensourceinitiative&logoColor=ECEFF4)](LICENSE)
 
 一个极简双栏的 Astro 主题，用于个人写作与轻量内容发布。
 
@@ -53,24 +47,14 @@ npm run build && npm run preview
 
 ## 一键部署
 
-<p align="center">
-  <a href="https://vercel.com/new/clone?repository-url=https://github.com/cxro/astro-whono">
-    <img src="https://vercel.com/button" alt="Deploy with Vercel" height="28" />
-  </a>
-  <a href="https://app.netlify.com/start/deploy?repository=https://github.com/cxro/astro-whono">
-    <img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" height="28" />
-  </a>
-  <a href="https://dash.cloudflare.com/?to=/:account/workers-and-pages">
-    <img src="https://img.shields.io/badge/Deploy-Cloudflare%20Pages-F38020?style=flat&logo=cloudflare&logoColor=white" alt="Deploy to Cloudflare Pages" height="28" />
-  </a>
-</p>
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/cxro/astro-whono) [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/cxro/astro-whono) <a href="https://dash.cloudflare.com/?to=/:account/workers-and-pages"><img src="https://img.shields.io/badge/Deploy-Cloudflare%20Pages-F38020?style=flat&logo=cloudflare&logoColor=white" alt="Deploy to Cloudflare Pages" height="32" /></a>
 
 部署参数（手动导入仓库时填写）：
 - Framework preset：Astro（Cloudflare Pages）
 - Build command：`npm run build`
 - Output directory：`dist`
-- Node version：`22`
-- 环境变量（可选）：`SITE_URL=https://<你的域名>`
+- Node version：`22.22`
+- 环境变量（建议）：`SITE_URL=https://<你的域名>`
 - 不设置 `SITE_URL` 也能部署，但 RSS/OG/canonical 可能使用相对链接或占位域名（`example.invalid`）
 - 生产环境建议配置 `SITE_URL`，用于生成 canonical/og:url（绝对 URL）和 RSS 链接
 
@@ -95,13 +79,13 @@ npm run build && npm run preview
 ## 内容与路由
 
 内容集合（Content Collections）：
-- posts：`src/content/posts/*.md`
-- essay：`src/content/essay/*.md`
-- bits：`src/content/bits/*.md`
-- kids：`src/content/kids/index.md`
+- posts：位于 `src/content/posts` 目录
+- essay：位于 `src/content/essay` 目录
+- bits：位于 `src/content/bits` 目录
+- kids：位于 `src/content/kids/index.md`
 
 主要路由：
-- 列表页：`/posts/`、`/essay/`、`/bits/`、`/kids/`、`/about/`
+- 列表页：`/archive/`、`/essay/`、`/bits/`、`/kids/`、`/about/`
 - 详情页：posts / essay 使用 `[...slug]`
 
 
@@ -112,6 +96,7 @@ posts / essay：
 title: My Post
 date: 2026-01-01
 draft: false
+archive: true
 slug: optional
 badge: optional # 仅 essay 使用
 ```
@@ -182,7 +167,7 @@ draft: true
 ## RSS
 
 - `/rss.xml`（聚合）
-- `/posts/rss.xml`
+- `/archive/rss.xml`
 - `/essay/rss.xml`
 
 部署时建议设置 `SITE_URL`（影响 RSS/OG/canonical 的绝对链接）。

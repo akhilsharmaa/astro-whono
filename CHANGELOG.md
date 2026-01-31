@@ -10,6 +10,7 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 新增 `netlify.toml` 固化 Netlify 构建与发布参数
 - README 一键部署增加部署后检查清单
 - 新增 `tools/charset-base.txt`（3500 常用字基础表）
+- posts/essay 新增 `archive` 字段（默认 true），用于控制是否进入归档与 RSS
 ### Changed
 - 构建时强制内联样式表（`inlineStylesheets: 'always'`），减少首屏阻塞 CSS
 - `SITE_URL` 缺失时不再输出 canonical/og:url（避免相对 URL 被判错）
@@ -24,6 +25,8 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - LXGW WenKai Lite 字体改为三段子集（latin/common/ext）并使用 unicode-range 按需加载，移除大字体 preload；新增字体构建脚本与可提交子集文件
 - Noto Serif SC 改为自托管并子集化（400/600），移除 Google Fonts 依赖
 - 字符集生成合并 3500 常用字基础表，降低缺字概率
+- 归档入口改为 `/archive/`，合并 posts + essay，并同步更新 RSS/链接
+- 归档分页常量更名为 `PAGE_SIZE_ARCHIVE`
 ### Fixed
 - `robots.txt` 移除误导性的 sitemap 注释
 - 桌面端导航链接点击区域由整行收敛到文本范围
@@ -117,10 +120,10 @@ The format is based on Keep a Changelog, and this project aims to follow Semanti
 - 侧栏底部新增阅读模式与 RSS 按钮（黑白图标、悬停提示），阅读模式全站入口，文章/Kids 页支持沉浸阅读与退出按钮
 - Kids 页面 TOC 区域折叠指示器（三角形图标，展开/折叠时旋转）
 - Initial Astro theme scaffold with fixed sidebar + content layout.
-- Routes: `/`, `/posts/`, `/essay/`, `/bits/`, `/kids/`, `/about/`.
+- Routes: `/`, `/archive/`, `/essay/`, `/bits/`, `/kids/`, `/about/`.
 - Content Collections: `posts`, `essay`, `bits`, `kids`.
 - Bits draft generator: `npm run new:bit`.
-- RSS endpoints: `/rss.xml`, `/posts/rss.xml`, `/essay/rss.xml`.
+- RSS endpoints: `/rss.xml`, `/archive/rss.xml`, `/essay/rss.xml`.
 
 ### Changed
 - callout 样式改为极简竖线形态，移除背景/边框/标题分隔线
