@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const distDir = path.resolve('dist');
-const target = path.join(distDir, 'posts', 'markdown-guide', 'index.html');
+const target = path.join(distDir, 'archive', 'markdown-guide', 'index.html');
 
 const getGalleryBlock = (html) => {
   const match = html.match(
