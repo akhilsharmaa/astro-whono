@@ -138,11 +138,12 @@
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 10em;
+  height: 10em;
   border-radius: 999px;
   box-sizing: border-box;
   overflow: hidden;
+  object-fit: cover;
   display: inline-flex;
   align-items: center;
   justify-content: center;

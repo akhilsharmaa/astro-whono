@@ -285,6 +285,17 @@ hr {
   letter-spacing: 0.02em;
 }
 
+		
+/* .avatar{ */
+/* 	width: 14rem; */
+/* 	height: 14rem; */
+/* 	padding: 0; */
+/* 	object-fit: cover; */
+/* 	/* filter: grayscale(100%); */ */
+/* 	right: 0rem; */
+/* 	border-radius: 100%; */
+/* } */
+
 .home .intro {
   margin-top: 16px;
 }
