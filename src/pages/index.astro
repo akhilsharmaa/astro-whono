@@ -5,6 +5,8 @@ import EntryListItem from '../components/EntryListItem.astro';
 import { getPublished, isReservedSlug } from '../lib/content';
 import { getListExcerpt } from '../utils/excerpt';
 import { createWithBase } from '../utils/format';
+import { getCollection } from 'astro:content'; 
+import Typewriter from "astro-typewriter";
 
 const base = import.meta.env.BASE_URL ?? '/';
 const withBase = createWithBase(base);
@@ -13,41 +15,113 @@ const essays = await getPublished('essay', {
   orderBy: (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 });
 
-const visibleEssays = essays.filter((entry) => !isReservedSlug(entry.data.slug ?? entry.id));
-const latest = visibleEssays.slice(0, 12);
+const blogs = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const projects = (await getCollection('project')).sort(
+	(a, b) => a.data.rank.valueOf() - b.data.rank.valueOf(),
+);
+
+const pull_requests = (await getCollection('pull_request')).sort(
+	(a, b) => a.data.prDate.valueOf() - b.data.prDate.valueOf(),
+);
 ---
 
 <BaseLayout bodyClass="home">
-  <h1 className="sr-only">Akhilesh</h1>
-  <div className="hero">
-    <HeroImage isLCP />
-  </div>
+	<h1 className="sr-only">Hi, I'm Akhilesh, 
+		<span> 
+			<Typewriter messages={["Developer.", "Tinkerer.", "Student."]}
+				    style="line-height: 1.2em, font-size: 5em"
+			/>
+	 	</span>
+	</h1>
+  <!-- <div className="hero"> -->
+  <!--   <HeroImage isLCP /> -->
+  <!-- </div> -->
 
-  <div className="intro intro--serif">
-    <span className="intro__lead">
-      Welcome to my personal website. This is a collection of my writings, notes, archives, and short thoughts where I share ideas, experiences, and learnings.
-    </span>
-    <span className="intro__more">
-      Browse more posts in the <a href={withBase('/archive/')}>Archive</a> or explore my <a href={withBase('/essay/')}>Essays</a>.
-    </span>
-  </div>
+	<div className="intro intro--serif">
+	    <!-- <span className="intro__lead"> -->
+	    <!--   Welcome to my personal website. This is a collection of my writings, notes, archives, and short thoughts where I share ideas, experiences, and learnings. -->
+	    <!-- </span> -->
+	    <!-- <span className="intro__more"> -->
+	    <!--   Browse more posts in the <a href={withBase('/archive/')}>Archive</a> or explore my <a href={withBase('/essay/')}>Essays</a>. -->
+	    <!-- </span> -->
 
-  <h2 className="section-title section-title--index">Index</h2>
+	<p class="pb-8 md:text-4xl md:text-left text-center text-3xl slogan italic">Developer / Tinkerer / Student</p>
+	<p class="half">I'm Akhilesh, Currently pursuing B-Tech  in computer science at 
+		<!-- <a href="https://www.heritageit.edu/"> -->
+		<!-- <Abbr title="Heritage, Kolkata" description="Hertage Institute of Technology, Kolkata \n \t Go to https://www.heritageit.edu/" showLogo=false/>  -->
+		<!-- </a> -->
+		 Heritage, Kolkata from 2022—2026. </p>  
+	<p class="half">During summer of 2024, I joined  
+		<a href="https://www.faralpha.com/">@FarAlpha</a>
+		as <span class="circle-sketch-highlight"> SDE Intern</span>. I worked on CI/CD pipelines, AWS, Terraform,  NodeJs, FastAPI, Web-Scraping, Selenium, 
+		ReactJs, Flutter & Firebase. 
+	</p>
+	  </div>
 
-  <div className="list">
-    {latest.map((entry) => {
-      const slug = entry.data.slug ?? entry.id;
-      const href = withBase(`/archive/${slug}/`);
-      const tag = entry.data.tags?.[0];
-      return (
-        <EntryListItem
-          href={href}
-          title={entry.data.title}
-          date={entry.data.date}
-          tag={tag}
-          excerpt={getListExcerpt(entry)}
-        />
-      );
-    })}
-  </div>
+
+
+        <p class="half">
+          I love contributing to 
+          <a href="/open-source">open-source</a> projects. 
+          I’ve had several pull requests merged into well-known organizations, 
+          check out some of my contribution. 
+          <a class="" href="/open-source">(view all)</a>
+        </p>
+
+	</div>
+
+      <!-- ------------------------------------ -->
+      <!-- --- DATA STRUCTURES & ALGORITHMS --- -->
+      <!-- ------------------------------------ -->
+			<p class="half">
+          Sometimes, I juggle Data Structures & Algorithms — they say it improve problem-solving.
+      </p>
+      <table class="border-separate border-spacing-x-4">
+          <tr id="1" class="m-0">
+              <td class="align-top">
+                <p class="text-xl leading-tight mb-1"> 
+                  <a href="https://leetcode.com/u/akhilsharmaa/">Leetcode</a>
+                </p>
+              </td>
+              <td class="align-top">
+                  <p class="text-xl leading-tight mb-1">  
+                      Rating: 1709+, solved 450+ problems
+                  </p>
+              </td>
+          </tr>
+          <tr id="2" class="m-0">
+              <td class="align-top"> 
+                <p class="text-xl leading-tight mb-1"> 
+                  <a href="https://codeforces.com/profile/akhilsharmaa">CodeForces</a>
+                </p>
+              </td>
+              <td class="align-top">
+                  <p class="text-xl leading-tight mb-1">  
+                  Rating: 1320+, @pupil badge achieved  
+                  </p>
+              </td>
+          </tr> 
+      </table>
+
+      <div class='flex i '>
+      <h4 class="text-4xl">
+        Personal Projects
+        <sup>					
+	<a class="text-xl" href="project"> (view all) </a>
+	<ul>
+	{
+		projects.map(async (project) => {
+		  return (
+			<p> {project.data.title} </p>
+		  );
+		})
+		}
+	</ul>
+        </sup>
+      </h4> 
+      </div>
+
 </BaseLayout>

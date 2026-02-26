@@ -9,7 +9,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: var(--sidebar) 1px 1fr;
-  max-width: 2200px;
+  max-width: 2000px;
   margin: 0 auto;
 }
 
