@@ -96,7 +96,7 @@
 ================================ */
 :root {
   color-scheme: light;
-  --bg: #fffefc;
+  --bg: #fafaf9;
   --text: #292524;
   --muted: #57534e;
   --faint: #a8a29e;
@@ -133,7 +133,7 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #1a1a1a;
+  --bg: #fafaf9;
   --text: #e5e5e5;
   --muted: #a3a3a3;
   --faint: #737373;
