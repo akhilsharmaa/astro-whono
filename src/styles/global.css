@@ -164,8 +164,8 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: "Noto Serif SC", ui-serif, Georgia, "Times New Roman", "Songti SC", serif;
-  line-height: 1.75;
-  font-size: 16px;
+  line-height: 1.65;
+  font-size: 15px;
 }
 
 time,
@@ -202,7 +202,8 @@ img {
 }
 
 a {
-  color: var(--text);
+  color: var(--accent);
+  font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid transparent;
 }
