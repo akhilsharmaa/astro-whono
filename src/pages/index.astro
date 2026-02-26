@@ -1,50 +1,32 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import HeroImage from '../components/HeroImage.astro';
-import EntryListItem from '../components/EntryListItem.astro';
-import { getPublished, isReservedSlug } from '../lib/content';
-import { getListExcerpt } from '../utils/excerpt';
-import { createWithBase } from '../utils/format';
 import { getCollection } from 'astro:content'; 
 import Typewriter from "astro-typewriter";
 
-const base = import.meta.env.BASE_URL ?? '/';
-const withBase = createWithBase(base);
 
-const blogs = (await getCollection('blog')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+
+// const blogs = (await getCollection('blog')).sort(
+// 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+// );
 
 const projects = (await getCollection('project')).sort(
 	(a, b) => a.data.rank.valueOf() - b.data.rank.valueOf(),
 );
 
-const pull_requests = (await getCollection('pull_request')).sort(
-	(a, b) => a.data.prDate.valueOf() - b.data.prDate.valueOf(),
-);
+// const pull_requests = (await getCollection('pull_request')).sort(
+// 	(a, b) => a.data.prDate.valueOf() - b.data.prDate.valueOf(),
+// );
 ---
 
 <BaseLayout bodyClass="home">
-	<h1 className="sr-only">Hi, I'm Akhilesh, 
+	<h1 class="sr-only">Hi, I'm Akhilesh, 
 		<span> 
 			<Typewriter messages={["a developer.", "a tinkerer.", "a student."]}
 				    style="line-height: 1.2em, font-size: 5em"
 			/>
 	 	</span>
 	</h1>
-  <!-- <div className="hero"> -->
-  <!--   <HeroImage isLCP /> -->
-  <!-- </div> -->
 
-	<div className="intro intro--serif">
-	    <!-- <span className="intro__lead"> -->
-	    <!--   Welcome to my personal website. This is a collection of my writings, notes, archives, and short thoughts where I share ideas, experiences, and learnings. -->
-	    <!-- </span> -->
-	    <!-- <span className="intro__more"> -->
-	    <!--   Browse more posts in the <a href={withBase('/archive/')}>Archive</a> or explore my <a href={withBase('/essay/')}>Essays</a>. -->
-	    <!-- </span> -->
-
-	<p class="pb-8 md:text-4xl md:text-left text-center text-3xl slogan italic">Developer / Tinkerer / Student</p>
 	<p class="half">I'm Akhilesh, Currently pursuing B-Tech  in computer science at 
 		<!-- <a href="https://www.heritageit.edu/"> -->
 		<!-- <Abbr title="Heritage, Kolkata" description="Hertage Institute of Technology, Kolkata \n \t Go to https://www.heritageit.edu/" showLogo=false/>  -->
@@ -55,9 +37,14 @@ const pull_requests = (await getCollection('pull_request')).sort(
 		as <span class="circle-sketch-highlight"> SDE Intern</span>. I worked on CI/CD pipelines, AWS, Terraform,  NodeJs, FastAPI, Web-Scraping, Selenium, 
 		ReactJs, Flutter & Firebase. 
 	</p>
-	  </div>
 
 
+	<span class="">some cool things i have done:</span>
+	<ul>
+		<li>Got selected for <a href="https://github.com/gofr-dev/gofr/pull/2072">GoFr Summer of Code</a> and contributed to the open-source microservices framework by adding built-in <a href=""> InfluxDB support </a> with core features, 80% test coverage.</li>
+		<li>Hit <a>Pupil on Codeforces</a> in 2nd year of college, after that i got obsessed with <a>solving real software problems</a> and left competitve programming behind.</li>
+		<li>(for fun) i also won a blind folded coding comp in college, i actually wrote binary search in C++ with my eyes closed, and it's actually <a>compiled</a></li>
+	</ul>
 
         <p class="half">
           I love contributing to 
@@ -111,7 +98,14 @@ const pull_requests = (await getCollection('pull_request')).sort(
 	{
 		projects.map(async (project) => {
 		  return (
-			<p> {project.data.title} </p>
+		    <li>
+			    <p class="text-xl leading-tight mb-1"> 
+			      <a href={project.data.codeLink}>{project.data.title}</a>
+			    </p>
+			    <p class="text-xl leading-tight mb-1">  
+			      {project.data.description} 
+			    </p>
+		    </li>
 		  );
 		})
 		}
