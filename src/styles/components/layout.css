@@ -117,7 +117,7 @@
 }
 
 .content__inner {
-  max-width: var(--max);
+  /* max-width: var(--max); */
   display: flex;
   flex-direction: column;
   flex: 1;
