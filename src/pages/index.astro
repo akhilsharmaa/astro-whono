@@ -14,9 +14,9 @@ const projects = (await getCollection('project')).sort(
 	(a, b) => a.data.rank.valueOf() - b.data.rank.valueOf(),
 );
 
-// const pull_requests = (await getCollection('pull_request')).sort(
-// 	(a, b) => a.data.prDate.valueOf() - b.data.prDate.valueOf(),
-// );
+const pull_requests = (await getCollection('pull_request')).sort(
+	(a, b) => a.data.prDate.valueOf() - b.data.prDate.valueOf(),
+);
 ---
 
 <BaseLayout bodyClass="home">
@@ -63,19 +63,19 @@ const projects = (await getCollection('project')).sort(
 	}
 	</ul>
 
-	<hr/>
-
-
+    <hr/>
     <div class="flex-wrap-between">
       <div> 
-        <p> My Writes: </p> 
+        <p> Pull Requests: </p> 
 	<ul style="list-style: none; padding-left: 0; margin: 0;">
 	{
-		blogs.map(async (blog) => {
+		pull_requests.map(async (pr) => {
 		  return (
 		    <li> 
-			<FormatedDate date={blog.data.pubDate} /> 
-			--  <a href={blog.data.title}>{blog.data.title}</a>
+			    {pr.data.prStatus} --
+			<a href={pr.data.orgLink}>({pr.data.orgName})</a>, 
+			<a href={pr.data.prLink}>{pr.data.prTitle}</a>, 
+			
 		    </li>
 		  );
 		})
@@ -84,12 +84,12 @@ const projects = (await getCollection('project')).sort(
       </div>
 
       <div> 
-        <p> My Writes: </p> 
+        <p> Blogs (Medium): </p> 
 	<ul style="list-style: none; padding-left: 0; margin: 0;">
 	{
 		blogs.map(async (blog) => {
 		  return (
-		    <li> 
+		    <li > 
 			<FormatedDate date={blog.data.pubDate} /> 
 			--  <a href={blog.data.title}>{blog.data.title}</a>
 		    </li>
